@@ -51,6 +51,11 @@ class LoginPage {
         cy.get(this.selectorsList().logoutButton).click()
     }
 
+    justlogout(){
+        cy.get(this.selectorsList().logoutButton).click()
+
+    }
+
     loginUser(email, password) {
         cy.get(this.selectorsList().loginButton).click()
 
