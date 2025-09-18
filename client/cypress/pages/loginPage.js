@@ -1,81 +1,182 @@
 class LoginPage {
+
     selectorsList() {
         const selectors = {
-            emailField: "[data-cy='email']",
-            passwordField: "[data-cy='password']",
             loginButton: "li > .undefined",
-            signinButton: '.bg-blue-700',
-
+            emailField: '[data-cy="email"]',
+            passwordField: '[data-cy="password"]',
+            siginButton: '.bg-blue-700',
+            logoutButton: 'nav > .flex > :nth-child(2) > .undefined',
+            logoutUserButton: 'li > .undefined',
+            alertMessageLogin: '.text-red-500',
         }
         return selectors
     }
-    acessLoginPage() {
+
+    accessPage() {
         cy.visit('/heroes')
-
     }
-    loginButtom() {
+
+    loginAdmin(email, password) {
         cy.get(this.selectorsList().loginButton).click()
-    }
 
-    loginAdmin(adminEmail, adminPass) {
-        cy.get(this.selectorsList().emailField).clear()
-        cy.get(this.selectorsList().emailField).type(adminEmail)
-        cy.get(this.selectorsList().passwordField).clear()
-        cy.get(this.selectorsList().passwordField).type(adminPass)
-        cy.get(this.selectorsList().signinButton).click()
-    }
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
 
-    loginUser(userEmail, userPass) {
-        cy.get(this.selectorsList().emailField).clear()
-        cy.get(this.selectorsList().emailField).type(userEmail)
-        cy.get(this.selectorsList().passwordField).clear()
-        cy.get(this.selectorsList().passwordField).type(userPass)
-        cy.get(this.selectorsList().signinButton).click()
-    }
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
 
-    errorMessage(){
-        cy.get('.text-red-500').should('be.visible')
-    }
-
-    errorEmailEmpty(){
-        cy.get('.text-red-500').should('contain.text', 'Email is required');
+        // Checking if the page has admin permissions
+        cy.get('a > .undefined').should('be.visible')
 
     }
 
-    loginAdminEmpty(userEmail){
-        cy.get(this.selectorsList().emailField).clear()
-        cy.get(this.selectorsList().emailField).type(userEmail)
-        cy.get(this.selectorsList().passwordField).click()
-        cy.get(this.selectorsList().signinButton).click()
+    logoutAdmin(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        // Checking if the page has admin permissions
+        cy.get('a > .undefined').should('be.visible')
+
+        // Logout click
+        cy.get(this.selectorsList().logoutButton).click()
     }
 
-    loginEmpty(){
+    loginUser(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        // Checking if the page don't have admin permissions
+        cy.get('a > .undefined').should('not.exist')
+    }
+
+    logoutUser(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        // Checking if the page don't have admin permissions
+        cy.get('a > .undefined').should('not.exist')
+
+        // click to logout
+        cy.get(this.selectorsList().logoutUserButton).click()
+    }
+
+
+    loginWrPass(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking wrong password
+        cy.get(this.selectorsList().alertMessageLogin).should('be.visible') // Checking without checking if are using the right alert message
+    }
+
+    loginWrEmail(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking wrong password
+        cy.get(this.selectorsList().alertMessageLogin).should('be.visible') // Checking without checking if are using the right alert message
+    }
+
+    emptyFields(){
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
         cy.get(this.selectorsList().emailField).click()
         cy.get(this.selectorsList().passwordField).click()
-        cy.get(this.selectorsList().signinButton).click()
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking empty password
+        cy.get(this.selectorsList().alertMessageLogin).should('be.visible') // Checking the alert message
     }
 
-    errorPasswordEmpty(){
-         cy.get('.text-red-500').should('contain.text', 'Password is required');
+    emptyPass(email) {
+        cy.get(this.selectorsList().loginButton).click()
+
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).click()
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking empty password
+        cy.get(this.selectorsList().alertMessageLogin).should('have.text', 'Password is required') // Checking the exactly message
     }
 
+    emptyEmail(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
 
-    logoutAdmin(){
-        this.loginAdmin('admin@test.com', 'test123')
-        cy.get('nav > .flex > :nth-child(2) > .undefined').click()
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
 
-        cy.location('pathname').should('eq', '/heroes');
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking empty email
+        cy.get(this.selectorsList().alertMessageLogin).should('have.text', 'Email is required') // Checking the exactly message
     }
 
-    logoutUser(){
-        this.loginUser('test@test.com', 'test123')
-        cy.get('li > .undefined').click()
+    loginIncorrect(email, password) {
+        cy.get(this.selectorsList().loginButton).click()
 
-        cy.location('pathname').should('eq', '/heroes');
+        // Checking if the login pop-up appeared
+        cy.get('.modal-container > .open').should('be.visible')
+
+        // Writing the email and password
+        cy.get(this.selectorsList().emailField).type(email)
+        cy.get(this.selectorsList().passwordField).type(password)
+        cy.get(this.selectorsList().siginButton).click()
+
+        //Checking credentials
+        cy.get(this.selectorsList().alertMessageLogin).should('have.text', 'Invalid email or password') // Checking the exactly message
+    }
+
     
-    }
-
 
 }
 
-export default LoginPage;
+export default LoginPage

@@ -1,108 +1,53 @@
-import LoginPage from '../pages/loginPage';
+import LoginPage from "../pages/loginPage"
+import userData from "../fixtures/user/userData.json"
+import Chance from 'chance';
 
-const loginPage = new LoginPage();
+const chance = new Chance();
+const loginPage = new LoginPage()
 
-describe('Login Test', () => {
-  it('Login Test Admin Success', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    // Login Button
-    loginPage.loginButtom()
-    // Login witg Admin Success
-    loginPage.loginAdmin('admin@test.com', 'test123')
-  })
-  it('Login Test User Success', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    // Login Button
-    loginPage.loginButtom()
-    //Login with User Sucess
-    loginPage.loginUser('test@test.com', 'test123')
-  })
-  it('Login Test Admin wrong email', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with Wrong Admin user
-    loginPage.loginAdmin('admim@test.com', 'test123')
-    //Check failed
-    loginPage.errorMessage()
-  })
-  it('Login Test Admin wrong password', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with Wrong Admin user
-    loginPage.loginAdmin('admin@test.com', 'teste123')
-    //Check failed
-    loginPage.errorMessage()
-  })
-  it('Login Test Admin wrong password and email', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with Wrong Admin user
-    loginPage.loginAdmin('admin@test.com', 'teste123')
-    //Check failed
-    loginPage.errorMessage()
-  })
-  it('Login Test Admin empty email', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with Empty Admin user
-    loginPage.loginAdmin(' ', 'teste123')
-    //Check empty failed
-    loginPage.errorEmailEmpty()
-  })
-  it('Login Test empty password', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with empty password
-    loginPage.loginAdminEmpty('admin@test.com')
-    //Check empty failed
-    loginPage.errorPasswordEmpty()
-  })
-  it('Login Test empty fields', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    //Login with empty
-    loginPage.loginEmpty()
-    //Check empty failed
-    loginPage.errorPasswordEmpty()
-    loginPage.errorEmailEmpty()
-  })
+describe('Positive scenario', () => {
+    it('Admin Login: correct email and password', () => {
+        loginPage.accessPage(); // Acessing the application
+        loginPage.loginAdmin(userData.SigninAdmin.email, userData.SigninAdmin.password); // Calling to access admin user
+    })
+    it('Logout: Admin', () => {
+        loginPage.accessPage(); // Acessing the application
+        loginPage.logoutAdmin(userData.SigninAdmin.email, userData.SigninAdmin.password); // Calling to access admin user and logout
+    })
+    it('User login: correct email and password', () => {
+        loginPage.accessPage(); // Acessing the application
+        loginPage.loginUser(userData.SigninUser.email, userData.SigninUser.password); // Calling to access user
+    })
+    it('Logout: User', () => {
+        loginPage.accessPage()
+        loginPage.logoutUser(userData.SigninUser.email, userData.SigninUser.password) // Calling to access user and logout
+    })
+})
+describe('Negative scenario', () => {
+    it('Login: correct email and incorrect password', () => {
+        loginPage.accessPage()
+        loginPage.loginWrPass(userData.SigninAdmin.email, 'wrongPassword')
+    })
+    it('Login: incorrect email and correct password', () => {
+        loginPage.accessPage()
+        loginPage.loginWrEmail('wrong@email.com', userData.SigninAdmin.password)
+    })
+    it('Login: correct email and empty password', () => {
+        loginPage.accessPage()
+        loginPage.emptyPass(userData.SigninAdmin.email)
+    })
+    it('Login: Empty email and correct password', () => {
+        loginPage.accessPage()
+        loginPage.emptyEmail(' ', userData.SigninAdmin.password)
+    })
+    it('Login: Empty email and password', () => {
+        loginPage.accessPage()
+        loginPage.emptyFields()
+    })
+    it('Login: Incorrect credentials', () => {
+        loginPage.accessPage(); // Acessing the application
+        loginPage.loginIncorrect(chance.email(), chance.string({ length: 5 })); // Calling to access using wrong email and password
+    })
 })
 
-describe('Logout Test', () => {
-  it('Logout Admin test', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    // Logout Admin
-    loginPage.logoutAdmin()
-  })
-  it('Logout user test', () => {
-    // Heroes link application
-    loginPage.acessLoginPage()
-    //Login Button
-    loginPage.loginButtom()
-    // Logout User
-    loginPage.logoutUser()
-  })
 
-
-
-
-
-
-})

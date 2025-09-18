@@ -1,0 +1,10 @@
+{
+    "SigninAdmin": {
+        "email": "admin@test.com",
+        "password": "test123"
+    },
+    "SigninUser": {
+        "email": "test@test.com",
+        "password": "test123"
+    }
+}
