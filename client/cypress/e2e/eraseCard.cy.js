@@ -12,7 +12,6 @@ const createPage = new CreatePage()
 const editPage = new EditPage()
 let name, lastname
 
-
 describe('Erase card by Admin user', () => {
     it('Login Admin and create hero', () => {
         loginPage.accessPage()
@@ -47,6 +46,4 @@ describe('Erase card by Admin user', () => {
         erasePage.delEditUser()
 
     })
-
-
 })

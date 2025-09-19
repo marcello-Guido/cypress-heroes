@@ -35,6 +35,4 @@ describe('Create new Hero', () => {
         lastName = name;
         createPage.checkHero(lastName)
     })
-
-
 })

@@ -85,8 +85,5 @@ class EditPage {
                 .should('not.exist')
         })
     }
-
-
 }
-
 export default EditPage

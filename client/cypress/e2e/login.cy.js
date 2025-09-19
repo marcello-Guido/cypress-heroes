@@ -23,6 +23,7 @@ describe('Positive scenario', () => {
         loginPage.logoutUser(userData.SigninUser.email, userData.SigninUser.password) // Calling to access user and logout
     })
 })
+
 describe('Negative scenario', () => {
     it('Login: correct email and incorrect password', () => {
         loginPage.accessPage()

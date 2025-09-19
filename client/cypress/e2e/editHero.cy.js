@@ -10,16 +10,12 @@ const createPage = new CreatePage()
 const editPage = new EditPage()
 let name, lastname, newName
 
-
 describe('Edit Hero using admin', () => {
     it('Create new hero', () => {
         loginPage.accessPage()
         loginPage.loginAdmin(userData.SigninAdmin.email, userData.SigninAdmin.password)
         name = chance.last()
         createPage.newHero(name, chance.integer({min:10, max: 350}), chance.integer({min:10, max: 350}), chance.integer({min:10, max: 350}), 'Flying')
-
-
-      
     })
     it('Edit element of the new hero', () => {
         loginPage.accessPage()
@@ -28,10 +24,8 @@ describe('Edit Hero using admin', () => {
         editPage.searchHero(lastname)
         newName = chance.last()
         editPage.editHero(newName, chance.integer({min:10, max: 350}), chance.integer({min:10, max: 350}), chance.integer({min:10, max: 350}), 'Fireball')
-        
 
     })
-
 })
 
 describe('Edit Hero using user permissions', () => {

@@ -80,39 +80,7 @@ class FeaturesPage {
                     });
                 });
         });
-        /*
-        
-        cy.contains(this.selectorsList().heroCard, heroName).within(() => {
-            cy.get(this.selectorsList().fansHeroNumber)
-                .invoke('text')
-                .then((textBefore) => {
-                    cy.wrap(Number(textBefore.trim())).as('savesBefore'); // @savesBefore
-                });
-
-            cy.get(this.selectorsList().fansButton).click();
-        });
-
-        // 3) pega o número depois e compara
-        cy.contains(this.selectorsList().heroCard, heroName).within(() => {
-            cy.get(this.selectorsList().fansHeroNumber)
-                .invoke('text')
-                .then((textAfter) => {
-                    const savesAfter = Number(textAfter.trim());
-
-                    cy.get('@savesBefore').then((savesBefore) => {
-                        cy.log('Antes:', savesBefore, 'Depois:', savesAfter);
-
-                        // comparação: depois deve ser exatamente +1 do antes
-                        expect(savesAfter).to.eq(
-                            savesBefore + 1,
-                            'O número deve aumentar exatamente 1 unidade'
-                        );
-
-                        cy.log('Success! O número aumentou em 1');
-                    });
-                });
-        });
-        */
+    
     }
 
 }

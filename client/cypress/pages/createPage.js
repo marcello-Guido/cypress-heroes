@@ -13,7 +13,6 @@ class CreatePage{
         }
         return selectors
     }
-
     newHero(name, price, fans, saves, power){
         cy.get('a > .undefined').click() // Clicking in the createButton after login
         //Checking if is in the right page

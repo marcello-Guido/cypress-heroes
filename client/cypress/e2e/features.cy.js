@@ -14,7 +14,6 @@ const createPage = new CreatePage()
 const editPage = new EditPage()
 let name, lastname, hireNumber, fansNumber
 
-
 describe('Feature Hire', () => {
     it('Create new Hero and hire by admin', () => {
         //Login by Admin
@@ -33,7 +32,6 @@ describe('Feature Hire', () => {
         // Hire de hero
         featurePage.hireHero(lastname)
         
-
     })
     it('hire the last new hero by User', () => {
         //Login by Admin
@@ -57,7 +55,6 @@ describe('Feature Hire', () => {
 
     })
 })
-
 
 describe('Feature Fans', () => {
     it('Create new Hero and click fans by admin', () => {

@@ -22,11 +22,8 @@ class EragePage {
         cy.contains(this.selectorsList().heroCard, heroName).within(() => {
             cy.get(this.selectorsList().editCardButton).click();
         })
-
         // Check the edit page
         cy.location('pathname').should('match', /\/heroes\/\d+\/edit$/)
-        
-
     }
 
     deleteHeroByEdit() {
@@ -46,11 +43,8 @@ class EragePage {
     }
 
     delEditUser(heroName){
-       
             cy.get(this.selectorsList().editCardButton).should('not.exist')
             cy.get(this.selectorsList().eraseButton).should('not.exist')
-       
-
 
     }
 }

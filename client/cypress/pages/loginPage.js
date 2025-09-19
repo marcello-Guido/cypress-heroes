@@ -179,9 +179,6 @@ class LoginPage {
         //Checking credentials
         cy.get(this.selectorsList().alertMessageLogin).should('have.text', 'Invalid email or password') // Checking the exactly message
     }
-
-    
-
 }
 
 export default LoginPage
